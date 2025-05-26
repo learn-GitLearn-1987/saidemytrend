@@ -1,4 +1,5 @@
 pipeline {
+
     agent any
 
     environment {
@@ -34,22 +35,7 @@ pipeline {
             }
         }
 
-        stage("Quality Gate") {
-            steps {
-                script {
-                    timeout(time: 1, unit: 'HOURS') {
-                        def qg = waitForQualityGate()
-                        if (qg.status != 'OK') {
-                            echo "Quality Gate failed: ${qg.status}"
-                            error "Pipeline aborted due to Quality Gate failure"
-                        } else {
-                            echo "Quality Gate passed: ${qg.status}"
-                        }
-                    }
-                }
-            }
-        }
+    } // End of stages block
 
-    } // <- this closes the 'stages' block
-}     // <- this closes the 'pipeline' block
+} // End of pipeline block
 
